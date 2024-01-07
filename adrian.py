@@ -1,23 +1,27 @@
 from flask import Flask, jsonify
 import requests
+import pytest
 
 class EndpointTester:
     def __init__(self, endpoint, base_url="https://jsonplaceholder.typicode.com"):
         self.endpoint = endpoint
         self.base_url = base_url
 
-    def test(self):
+    @pytest.mark.parametrize("param_name, expected_status",
+                             [("posts", 200), ("comments", 200), ("todos", 200), ("users", 200)])
+    def test(self, param_name, expected_status):
         # Make a GET request to the API
         response = requests.get(f"{self.base_url}{self.endpoint}")
 
         # Check if the request was successful (status code 200)
-        if response.status_code == 200:
-            # Parse the JSON response
-            data = response.json()
-            return data
-        else:
-            # If the request was not successful, return an error message
-            return {"error": f"Failed to fetch data from {self.base_url}{self.endpoint}", "status_code": response.status_code}
+        assert response.status_code == expected_status, f"Failed to fetch data from {self.base_url}{self.endpoint}. Status code: {response.status_code}"
+
+        # Parse the JSON response
+        data = response.json()
+
+        # Add additional assertions based on your requirements
+        assert len(data) > 0, f"No data received from {self.base_url}{self.endpoint}"
+        return data
 
 class APITestingApp:
     def __init__(self):
@@ -32,22 +36,28 @@ class APITestingApp:
         # Dynamically add routes for each endpoint
         for endpoint in self.ENDPOINTS:
             tester = EndpointTester(endpoint, self.BASE_URL)
-            self.app.add_url_rule(endpoint, endpoint.replace('/', '_')[1:], lambda t=tester: self.test_endpoint(t))
+            self.app.add_url_rule(endpoint, f"endpoint_{endpoint}",
+                                  view_func=lambda tester='tester': self.test_endpoint(tester))
+
+            # Define the index route
+            self.app.add_url_rule('/', 'index', self.index)
 
     def index(self):
         return "API Testing Script using Flask with Python"
 
     def test_endpoint(self, tester):
-        data = tester.test()
+        data = tester.test("posts", 200)
         return jsonify(data)
 
     def run(self):
         # Run the Flask app on http://127.0.0.1:5000/
-        self.app.run(debug=True)
+        self.app.run(debug=False)
 
 if __name__ == '__main__':
     api_testing_app = APITestingApp()
     api_testing_app.run()
+    # Run the tests and generate an HTML report
+    pytest.main(['-v', '--html=report.html'])
 
 # http://127.0.0.1:5000/posts
 # http://127.0.0.1:5000/comments
