@@ -10,16 +10,14 @@ class EndpointTester:
     @pytest.mark.parametrize("param_name, expected_status",
                              [("posts", 200), ("comments", 200), ("todos", 200), ("users", 200)])
     def test(self, param_name, expected_status):
-        # Make a GET request to the API
+       
         response = requests.get(f"{self.base_url}{self.endpoint}")
 
-        # Check if the request was successful (status code 200)
+        
         assert response.status_code == expected_status, f"Failed to fetch data from {self.base_url}{self.endpoint}. Status code: {response.status_code}"
 
-        # Parse the JSON response
         data = response.json()
 
-        # Add additional assertions based on your requirements
         assert len(data) > 0, f"No data received from {self.base_url}{self.endpoint}"
         return data
 
@@ -27,19 +25,15 @@ class APITestingApp:
     def __init__(self):
         self.app = Flask(__name__)
 
-        # Define the base URL of the API
         self.BASE_URL = "https://jsonplaceholder.typicode.com"
 
-        # Define the endpoints you want to test
         self.ENDPOINTS = ["/posts", "/comments", "/todos", "/users"]
 
-        # Dynamically add routes for each endpoint
         for endpoint in self.ENDPOINTS:
             tester = EndpointTester(endpoint, self.BASE_URL)
             self.app.add_url_rule(endpoint, f"endpoint_{endpoint}",
                                   view_func=lambda tester='tester': self.test_endpoint(tester))
 
-            # Define the index route
             self.app.add_url_rule('/', 'index', self.index)
 
     def index(self):
