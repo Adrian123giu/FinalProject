@@ -5,38 +5,50 @@ Sursa datelor: Datele sunt simulate și returnate de la https://jsonplaceholder.
 
 Structura aplicației:
 
-Clasa EndpointTester:
-Descriere: Gestionarea testelor automate pentru endpoint-uri.
-Metoda test(param_name, expected_status):
-Parametri:
-param_name: Numele endpoint-ului de testat.
-expected_status: Statusul HTTP așteptat pentru răspuns.
-Acțiuni:
-Realizează o cerere GET către endpoint-ul specificat.
-Verifică dacă statusul răspunsului corespunde celui așteptat.
-Verifică dacă datele au fost primite corect.
-Returnează datele pentru a permite teste suplimentare sau analize ulterioare.
+Request-uri
 
-Clasa APITestingApp:
-Descriere: Implementarea principală a aplicației Flask.
-Constructor:
-Inițializează un obiect Flask.
-Setează un URL de bază pentru a accesa datele simulare.
-Definește o listă de endpoint-uri disponibile.
-Metoda index():
-Returnează un mesaj de prezentare pentru a indica funcționarea corectă a serverului.
-Metoda test_endpoint(tester):
-Parametru:
-tester: Un obiect EndpointTester utilizat pentru testarea unui endpoint specific.
-Acțiuni:
-Efectuează un test pe endpoint-ul /posts.
-Returnează datele pentru a fi utilizate într-un răspuns JSON.
+Am creat mai multe clase de request-uri, fiecare având metode specifice pentru interacțiunea cu diferite endpoint-uri ale API-ului JSONPlaceholder.
 
-Metoda run():
-Rulează serverul Flask pe http://127.0.0.1:5000/.
+PostsRequest
 
-Exemple de endpoint-uri:
-/posts: Returnează informații despre postări.
-/comments: Returnează informații despre comentarii.
-/todos: Returnează informații despre sarcini.
-/users: Returnează informații despre utilizatori.
+Metode pentru obținerea tuturor postărilor și a unei postări specifice prin ID, precum și pentru crearea unei noi postări.
+
+CommentsRequest
+
+Metode pentru obținerea tuturor comentariilor și a comentariilor specifice pentru un post prin ID-ul postului.
+
+TodosRequest
+
+Metode pentru obținerea tuturor todo-urilor și a unui todo specific prin ID.
+
+UsersRequest
+
+Metode pentru obținerea tuturor utilizatorilor și a unui utilizator specific prin ID.
+
+GeneralRequests
+
+Metode pentru request-uri generale, cum ar fi accesarea unui endpoint inexistent și verificarea timpului de răspuns pentru un endpoint valid.
+
+Teste
+
+Pentru fiecare set de request-uri, am creat teste corespunzătoare pentru a verifica funcționalitatea și performanța API-ului.
+
+Teste pentru PostsRequest
+
+Teste pentru obținerea tuturor postărilor, crearea unui post și obținerea unui post specific.
+
+Teste pentru CommentsRequest
+
+Teste pentru obținerea tuturor comentariilor și a comentariilor filtrate după postID.
+
+Teste pentru TodosRequest
+
+Teste pentru obținerea tuturor todo-urilor și a unui todo specific.
+
+Teste pentru UsersRequest
+
+Teste pentru obținerea tuturor utilizatorilor și a unui utilizator specific.
+
+Teste Generale (TestGeneral)
+
+Test pentru verificarea răspunsului la o cerere la un endpoint inexistent și test pentru verificarea timpului de răspuns la un endpoint valid.
