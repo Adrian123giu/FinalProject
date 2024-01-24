@@ -5,6 +5,7 @@ Sursa datelor: Datele sunt simulate și returnate de la https://jsonplaceholder.
 Structura aplicației:
 
 Request-uri
+
 Am creat mai multe clase de request-uri, fiecare având metode specifice pentru interacțiunea cu diferite endpoint-uri ale API-ului JSONPlaceholder.
 
 PostsRequest
