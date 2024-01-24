@@ -1,53 +1,51 @@
-Detalii aplicatie testata: 
-Scop: Simulează un API simplu pentru a furniza informații despre postări, comentarii, sarcini și utilizatori.
-Sursa datelor: Datele sunt simulate și returnate de la https://jsonplaceholder.typicode.com.
+# Final Project - API Testing Framework
 
-Structura aplicației:
+This repository contains an automated API testing framework for the JSONPlaceholder API, a simple mock API that provides information on posts, comments, todos, and users.
 
-Request-uri
+## Application Details Tested
 
-Am creat mai multe clase de request-uri, fiecare având metode specifice pentru interacțiunea cu diferite endpoint-uri ale API-ului JSONPlaceholder.
+**Purpose:**
+Simulates a straightforward API to deliver information about posts, comments, tasks, and users.
 
-PostsRequest
+**Data Source:**
+The data is simulated and returned from https://jsonplaceholder.typicode.com.
 
-Metode pentru obținerea tuturor postărilor și a unei postări specifice prin ID, precum și pentru crearea unei noi postări.
+## Application Structure
 
-CommentsRequest
+### Requests
 
-Metode pentru obținerea tuturor comentariilor și a comentariilor specifice pentru un post prin ID-ul postului.
+Multiple request classes have been created, each with specific methods for interacting with the different endpoints of the JSONPlaceholder API.
 
-TodosRequest
+#### PostsRequest
+- Methods to retrieve all posts and a specific post by ID, as well as to create a new post.
 
-Metode pentru obținerea tuturor todo-urilor și a unui todo specific prin ID.
+#### CommentsRequest
+- Methods to retrieve all comments and specific comments for a post by post ID.
 
-UsersRequest
+#### TodosRequest
+- Methods to retrieve all todos and a specific todo by ID.
 
-Metode pentru obținerea tuturor utilizatorilor și a unui utilizator specific prin ID.
+#### UsersRequest
+- Methods to retrieve all users and a specific user by ID.
 
-GeneralRequests
+#### GeneralRequests
+- Methods for general requests, such as accessing a non-existent endpoint and checking the response time for a valid endpoint.
 
-Metode pentru request-uri generale, cum ar fi accesarea unui endpoint inexistent și verificarea timpului de răspuns pentru un endpoint valid.
+### Tests
 
-Teste
+Corresponding tests have been created for each set of requests to verify the functionality and performance of the API.
 
-Pentru fiecare set de request-uri, am creat teste corespunzătoare pentru a verifica funcționalitatea și performanța API-ului.
+#### Tests for PostsRequest
+- Tests to retrieve all posts, create a post, and get a specific post.
 
-Teste pentru PostsRequest
+#### Tests for CommentsRequest
+- Tests to retrieve all comments and comments filtered by post ID.
 
-Teste pentru obținerea tuturor postărilor, crearea unui post și obținerea unui post specific.
+#### Tests for TodosRequest
+- Tests to retrieve all todos and a specific todo.
 
-Teste pentru CommentsRequest
+#### Tests for UsersRequest
+- Tests to retrieve all users and a specific user.
 
-Teste pentru obținerea tuturor comentariilor și a comentariilor filtrate după postID.
-
-Teste pentru TodosRequest
-
-Teste pentru obținerea tuturor todo-urilor și a unui todo specific.
-
-Teste pentru UsersRequest
-
-Teste pentru obținerea tuturor utilizatorilor și a unui utilizator specific.
-
-Teste Generale (TestGeneral)
-
-Test pentru verificarea răspunsului la o cerere la un endpoint inexistent și test pentru verificarea timpului de răspuns la un endpoint valid.
+#### General Tests (TestGeneral)
+- Test to verify the response to a request to a non-existent endpoint and test to check the response time for a valid endpoint.
